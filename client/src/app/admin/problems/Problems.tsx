@@ -115,7 +115,6 @@ const Problems: React.FC<ProblemsProps & RouteComponentProps> = props => {
                     <Dropdown.Item onClick={showAddPanel}>
                         Add Problem
                     </Dropdown.Item>
-                    <Dropdown.Item>Delete Selected</Dropdown.Item>
                 </Button.Dropdown>
             </div>
         ),
@@ -132,7 +131,7 @@ const Problems: React.FC<ProblemsProps & RouteComponentProps> = props => {
     return (
         <>
             <Panel
-                headerText={`${panelType === 'add'? 'Add': 'Edit'} tag`}
+                headerText={`${panelType === 'add'? 'Add': 'Edit'} problem`}
                 isOpen={showPanel && panelType !== undefined}
                 type={PanelType.medium}
                 onDismiss={closePanel}

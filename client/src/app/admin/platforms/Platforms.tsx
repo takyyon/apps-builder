@@ -115,7 +115,6 @@ const Platforms: React.FC<PlatformsProps & RouteComponentProps> = props => {
                     <Dropdown.Item onClick={showAddPanel}>
                         Add Platform
                     </Dropdown.Item>
-                    <Dropdown.Item>Delete Selected</Dropdown.Item>
                 </Button.Dropdown>
             </div>
         ),

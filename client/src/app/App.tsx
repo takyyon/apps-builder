@@ -50,6 +50,17 @@ const defaultNavBar = [
     ],
   },
   {
+    value: 'Tags',
+    icon: 'box',
+    subItems: [
+      {
+        value: 'List',
+        to: '/admin/tags',
+        useExact: true,
+      },
+    ],
+  },
+  {
     value: 'Platforms',
     icon: 'box',
     subItems: [

@@ -115,7 +115,6 @@ const Tags: React.FC<TagsProps & RouteComponentProps> = props => {
                     <Dropdown.Item onClick={showAddPanel}>
                         Add Tag
                     </Dropdown.Item>
-                    <Dropdown.Item>Delete Selected</Dropdown.Item>
                 </Button.Dropdown>
             </div>
         ),
