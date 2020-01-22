@@ -20,6 +20,8 @@ module.exports = function(app) {
         const item = {
             name: !!body.name? body.name: '',
             description: !!body.description? body.description: '',
+            time: !!body.time? body.time: '',
+            cost: !!body.cost? body.cost: '',
             icon: !!req.body.icon? body.icon: '',
             images: !!body.images? body.images: '',
             app: !!body.images? body.app: '',
@@ -36,6 +38,8 @@ module.exports = function(app) {
         const item = {
             name: !!body.name? body.name: '',
             description: !!body.description? body.description: '',
+            time: !!body.time? body.time: '',
+            cost: !!body.cost? body.cost: '',
             icon: !!req.body.icon? body.icon: '',
             images: !!body.images? body.images: '',
             app: !!body.images? body.app: '',
