@@ -16,6 +16,8 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use('/', express.static(path.join(__dirname, '/client/build'))); 
+
 const platformController = require('./server/controller/platform.controller.server');
 platformController(app);
 
@@ -33,13 +35,10 @@ appController(app);
 
 const featureController = require('./server/controller/feature.controller.server');
 featureController(app);
-
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, "client", "build")))
+     
     app.get("*", (req, res) => {
       res.sendFile(path.join(__dirname, "client", "build", "index.html"));
     });
-}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
