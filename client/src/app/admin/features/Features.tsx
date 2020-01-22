@@ -83,7 +83,7 @@ const Features: React.FC<FeaturesProps & RouteComponentProps> = props => {
     const create = async (values: Feature) => {
         setPanelOverlay(true);
         const appId = !!values.app && !!values.app._id ? values.app._id: undefined;
-        const response = await FeaturesService.create(values.name, values.description, values.icon, values.images, appId);
+        const response = await FeaturesService.create(values.name, values.description, values.time, values.cost, values.icon, values.images, appId);
         if(response.status >= 200 && response.status < 300) {
             closePanel();
             setReload(true);
@@ -95,7 +95,7 @@ const Features: React.FC<FeaturesProps & RouteComponentProps> = props => {
         setPanelOverlay(true);
         const appId = !!values.app && !!values.app._id ? values.app._id: undefined;
         if(!!values._id) {
-            const response = await FeaturesService.update(values._id, values.name, values.description, values.icon, values.images, appId);
+            const response = await FeaturesService.update(values._id, values.name, values.description, values.time, values.cost, values.icon, values.images, appId);
             if(response.status >= 200 && response.status < 300) {
                 closePanel();
                 setReload(true);

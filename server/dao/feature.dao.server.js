@@ -37,6 +37,8 @@ update = (id, item) => {
     return model.update({_id: id}, {$set: {
         name: item.name,
         description: item.description,
+        time: item.time,
+        cost: item.cost,
         icon: item.icon,
         images: item.images,
         app: item.app,

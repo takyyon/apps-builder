@@ -34,9 +34,9 @@ const AddEditFeature: React.FC<AddEditFeatureProps> = props => {
     const update = (values: Feature) => {
         const icon = !!iconString? iconString: (!!feature ? feature.icon: '');
         if(!!feature) {
-            props.update({_id: values._id, name: values.name, description: values.description, icon: icon, images: images, app: selectedApp});
+            props.update({_id: values._id, name: values.name, description: values.description, time: values.time, cost: values.cost, icon: icon, images: images, app: selectedApp});
         }else {
-            props.create({name: values.name, description: values.description, icon: icon, images: images, app: selectedApp});
+            props.create({name: values.name, description: values.description, time: values.time, cost: values.cost, icon: icon, images: images, app: selectedApp});
         }
     };
 
@@ -69,6 +69,8 @@ const AddEditFeature: React.FC<AddEditFeatureProps> = props => {
         return {
             name: '',
             description: '',
+            time: 0,
+            cost: 0,
             icon: DefaultAddImage,
             app: undefined,
             images: [],
@@ -143,6 +145,28 @@ const AddEditFeature: React.FC<AddEditFeatureProps> = props => {
                                     rows={10}
                                     rowsMin={10}
                                     rowsMax={15}
+                                    onChange={formikProps.handleChange}
+                                    onBlur={formikProps.handleBlur}
+                                />
+                            </div>
+                            <div className={formDivStyle}>
+                                <TextField
+                                    required
+                                    className={formElementStyle}
+                                    label="Time"
+                                    name="time"
+                                    value={`${formikProps.values.time}`}
+                                    onChange={formikProps.handleChange}
+                                    onBlur={formikProps.handleBlur}
+                                />
+                            </div>
+                            <div className={formDivStyle}>
+                                <TextField
+                                    required
+                                    className={formElementStyle}
+                                    label="Cost"
+                                    name="cost"
+                                    value={`${formikProps.values.cost}`}
                                     onChange={formikProps.handleChange}
                                     onBlur={formikProps.handleBlur}
                                 />

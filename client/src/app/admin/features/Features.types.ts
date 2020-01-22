@@ -8,6 +8,8 @@ export interface Feature {
     name: string;
     icon: string;
     description: string;
+    time: Number;
+    cost: Number;
     images: string[];
     app?: App;
     problems?: Problem[];
