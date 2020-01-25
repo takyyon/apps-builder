@@ -108,14 +108,6 @@ const App: React.FC = () => {
           itemsObjects: navBar
         }}
       >
-        <Match path='/login/*'>
-          {
-            matchProps => {
-              changeNavBar(!!matchProps.match);
-              return matchProps.match ? <Admin /> : <Main />;
-            }
-          }
-        </Match>
         <Match path='/admin/*'>
           {
             matchProps => {
