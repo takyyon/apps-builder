@@ -41,8 +41,8 @@ module.exports = function(app) {
             description: !!body.description? body.description: '',
             time: !!body.time? body.time: '',
             cost: !!body.cost? body.cost: '',
-            icon: !!req.body.icon? body.icon: '',
-            selected: !!req.body.selected? body.selected: '',
+            icon: !!body.icon? body.icon: '',
+            selected: !!body.selected? !!body.selected: '',
             images: !!body.images? body.images: '',
             app: !!body.images? body.app: '',
         };

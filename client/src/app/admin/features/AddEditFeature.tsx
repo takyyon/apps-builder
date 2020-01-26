@@ -130,6 +130,8 @@ const AddEditFeature: React.FC<AddEditFeatureProps> = props => {
                                     label='Default Selection'
                                     name='selected'
                                     defaultChecked={formikProps.values.selected}
+                                    onChange={formikProps.handleChange}
+                                    onBlur={formikProps.handleBlur}
                                 />
                             </div>
                             <div className={formDivStyle}>
