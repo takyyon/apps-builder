@@ -4,7 +4,7 @@ const featureSchema = mongoose.Schema({
     name: String,
     description: String,
     time: Number,
-    cost: mongoose.Schema.Types.Decimal128,
+    cost: Number,
     icon: String,
     selected: Boolean,
     app: {type: mongoose.Schema.Types.ObjectId, ref: 'App'},

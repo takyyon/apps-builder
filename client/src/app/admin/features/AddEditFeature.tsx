@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import DefaultAddImage from './../../../assets/images/add_image.png';
 import { Formik } from 'formik';
 import { formStyle, formDivStyle, formElementStyle, formLabelStyle, addIconStyle, chooseFileStyle, imageListDivStyle, imageListImageStyle, addImageStyle } from './Features.styles';
-import { TextField, Label, Dropdown, IDropdownOption } from "office-ui-fabric-react";
+import { TextField, Label, Dropdown, IDropdownOption, Checkbox } from "office-ui-fabric-react";
 import { Form, Button } from 'tabler-react';
 import ActionBar from "../../../utility/components/panel/ActionBar";
 import { App } from "../apps/Apps.types";
@@ -34,9 +34,9 @@ const AddEditFeature: React.FC<AddEditFeatureProps> = props => {
     const update = (values: Feature) => {
         const icon = !!iconString? iconString: (!!feature ? feature.icon: '');
         if(!!feature) {
-            props.update({_id: values._id, name: values.name, description: values.description, time: values.time, cost: values.cost, icon: icon, images: images, app: selectedApp});
+            props.update({_id: values._id, name: values.name, description: values.description, selected: values.selected, time: values.time, cost: values.cost, icon: icon, images: images, app: selectedApp});
         }else {
-            props.create({name: values.name, description: values.description, time: values.time, cost: values.cost, icon: icon, images: images, app: selectedApp});
+            props.create({name: values.name, description: values.description, selected: values.selected, time: values.time, cost: values.cost, icon: icon, images: images, app: selectedApp});
         }
     };
 
@@ -69,6 +69,7 @@ const AddEditFeature: React.FC<AddEditFeatureProps> = props => {
         return {
             name: '',
             description: '',
+            selected: true,
             time: 0,
             cost: 0,
             icon: DefaultAddImage,
@@ -125,9 +126,13 @@ const AddEditFeature: React.FC<AddEditFeatureProps> = props => {
                     return (
                         <form className={formStyle}>
                             <div>
-                                
+                                <Checkbox 
+                                    label='Default Selection'
+                                    name='selected'
+                                    defaultChecked={formikProps.values.selected}
+                                />
                             </div>
-                            <div>
+                            <div className={formDivStyle}>
                                 <TextField
                                     required
                                     className={formElementStyle}

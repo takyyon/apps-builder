@@ -65,7 +65,6 @@ const Apps: React.FC<AppsProps & RouteComponentProps> = props => {
 
     const reloadData = async() => {
         fetchData();
-        setReload(false);
     };
 
     const showAddPanel = () => {

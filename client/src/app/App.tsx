@@ -7,6 +7,7 @@ import { Site } from 'tabler-react';
 import logo from './../assets/images/logo.png';
 import Admin from './admin/Admin';
 import "tabler-react/dist/Tabler.css";
+import 'swiper/swiper.scss';
 import Main from './main/Main';
 import Login from './auth/Login';
 import AuthService from './auth/Auth.service';

@@ -30,7 +30,6 @@ const Categories: React.FC<CategoriesProps & RouteComponentProps> = props => {
 
     const reloadData = async() => {
         fetchData();
-        setReload(false);
     };
 
     const showAddPanel = () => {
