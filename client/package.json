@@ -16,6 +16,7 @@
     "bootstrap": "^4.4.1",
     "formik": "^2.1.2",
     "http-proxy-middleware": "^0.20.0",
+    "jwt-decode": "^2.2.0",
     "multer": "^1.4.2",
     "node-sass": "^4.13.1",
     "office-ui-fabric-react": "^7.83.2",

@@ -6,6 +6,7 @@ const featureSchema = mongoose.Schema({
     time: Number,
     cost: mongoose.Schema.Types.Decimal128,
     icon: String,
+    selected: Boolean,
     app: {type: mongoose.Schema.Types.ObjectId, ref: 'App'},
     images: [{ type: String }],
     platforms: [{type: mongoose.Schema.Types.ObjectId, ref: 'Platform'}],

@@ -18,6 +18,9 @@ app.use(function(req, res, next) {
 
 app.use('/', express.static(path.join(__dirname, '/client/build'))); 
 
+const userController = require('./server/controller/user.controller.server');
+userController(app);
+
 const platformController = require('./server/controller/platform.controller.server');
 platformController(app);
 

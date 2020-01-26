@@ -125,6 +125,9 @@ const AddEditFeature: React.FC<AddEditFeatureProps> = props => {
                     return (
                         <form className={formStyle}>
                             <div>
+                                
+                            </div>
+                            <div>
                                 <TextField
                                     required
                                     className={formElementStyle}

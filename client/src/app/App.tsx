@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 import { appTheme, ThemeContext } from './ThemeContext';
 import { Match } from "@reach/router";
@@ -8,6 +8,8 @@ import logo from './../assets/images/logo.png';
 import Admin from './admin/Admin';
 import "tabler-react/dist/Tabler.css";
 import Main from './main/Main';
+import Login from './login/Login';
+import AuthService from './login/Auth.service';
 
 const defaultNavBar = [
   {
@@ -87,15 +89,64 @@ const defaultNavBar = [
 const App: React.FC = () => {
   const [theme, /* setTheme */] = useState(appTheme);
   const [navBar, setNavBar] = useState<Array<any>>([]);
+  const [path, setPath] = useState('');
+  const [user, setUser] = useState(undefined);
+  const [accountDropdown, setAccountDropdown] = useState({});
 
-  const changeNavBar = (admin: boolean) => {
-    if(admin && navBar !== defaultNavBar) {
-      setNavBar(defaultNavBar);
-    }else if(!admin && navBar.length > 0) {
-      setNavBar([]);
-    }
+  const setAdminNavBar = () => {
+    setNavBar(defaultNavBar);
   };
 
+  const setMainNavBar = () => {
+    setNavBar([]);
+  };
+  
+  const signOut = () => {
+    AuthService.logout();
+    setUser(undefined);
+    setMainNavBar();
+  };
+
+  useEffect(() => {
+    if(!!user){
+      const currentUser = user || {};
+      setAccountDropdown({
+        avatarURL: currentUser['icon'] || '',
+        name: currentUser['name'] || '',
+        description: 'Administrator',
+        options: [
+          // { icon: "user", value: "Profile" },
+          // { icon: "settings", value: "Settings" },
+          // { icon: "mail", value: "Inbox", badge: "6" },
+          // { icon: "send", value: "Message" },
+          // { isDivider: true },
+          // { icon: "help-circle", value: "Need help?" },
+          { icon: "log-out", value: "Sign out", onClick: signOut },
+        ],
+      });
+    } else {
+      setAccountDropdown({});
+    }
+  }, [user]);
+  useEffect(() => {
+    if(path.startsWith('admin') && !!AuthService.getToken()) {
+      setAdminNavBar();
+    }else {
+      setMainNavBar();
+    }
+  }, [path]);
+  useEffect(() => {
+    const userFromStorage = localStorage.getItem('user');
+    if(!!userFromStorage) {
+      try{
+        const jsonUser = JSON.parse(userFromStorage);
+        setUser({...jsonUser});
+      }catch (err) {
+
+      }
+      
+    }
+  }, []);
   return (
     <ThemeContext.Provider value={theme}>
       <Site.Wrapper
@@ -103,16 +154,35 @@ const App: React.FC = () => {
           href: '/',
           alt: 'Apps Builder',
           imageURL: logo,
+          accountDropdown: {...accountDropdown},
         }}
         navProps={{
           itemsObjects: navBar
         }}
       >
-        <Match path='/admin/*'>
+        <Match path='/*'>
           {
             matchProps => {
-              changeNavBar(!!matchProps.match);
-              return matchProps.match ? <Admin /> : <Main />;
+              const token = AuthService.getToken();
+              if(!!matchProps.match) {
+                const currentPath = matchProps.match['*'];
+                if(path.toLowerCase() !== currentPath.toLowerCase()){
+                  setPath(currentPath);
+                }
+                if(currentPath.startsWith('admin')) {
+                  if(!token) {
+                    return <Login path={path} setUser={setUser} />;
+                  }
+                  if(navBar.length === 0) {
+                    setAdminNavBar();
+                  }
+                  return <Admin />;
+                }
+                if(path.startsWith('login') && !token) {
+                  return <Login path={path} setUser={setUser} />;
+                }
+              }
+              return <Main />;
             }
           }
         </Match>

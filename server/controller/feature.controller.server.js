@@ -23,6 +23,7 @@ module.exports = function(app) {
             time: !!body.time? body.time: '',
             cost: !!body.cost? body.cost: '',
             icon: !!req.body.icon? body.icon: '',
+            selected: !!req.body.selected? body.selected: '',
             images: !!body.images? body.images: '',
             app: !!body.images? body.app: '',
         };
@@ -41,6 +42,7 @@ module.exports = function(app) {
             time: !!body.time? body.time: '',
             cost: !!body.cost? body.cost: '',
             icon: !!req.body.icon? body.icon: '',
+            selected: !!req.body.selected? body.selected: '',
             images: !!body.images? body.images: '',
             app: !!body.images? body.app: '',
         };
