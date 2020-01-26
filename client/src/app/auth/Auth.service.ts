@@ -5,6 +5,10 @@ export default class AuthService {
         return makeRequest('api/login', 'POST', null, {email, password});
     }
 
+    public static update(name: string, image: string) {
+        return makeRequest('api/login', 'PUT', null, {name, icon: image}, true);
+    }
+
     public static getToken = () => {
         // Retrieves the user token from localStorage
         return localStorage.getItem("user_token");

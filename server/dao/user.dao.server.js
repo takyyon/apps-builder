@@ -14,7 +14,21 @@ register = (item) => {
     });
 };
 
+update = (id, name, icon) => {
+    return userModel.update({_id: id}, {$set: {
+        name: name,
+        icon: icon,
+    }});
+};
+
+findById = (id) => {
+    return userModel.
+        findById(id);
+}
+
 module.exports = {
     login,
     register,
+    update,
+    findById,
 };

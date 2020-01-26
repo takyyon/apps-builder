@@ -8,8 +8,12 @@ import logo from './../assets/images/logo.png';
 import Admin from './admin/Admin';
 import "tabler-react/dist/Tabler.css";
 import Main from './main/Main';
-import Login from './login/Login';
-import AuthService from './login/Auth.service';
+import Login from './auth/Login';
+import AuthService from './auth/Auth.service';
+import { PanelType } from 'office-ui-fabric-react';
+import EditProfile from './auth/EditProfile';
+import Panel from '../utility/components/panel/Panel';
+import LoadingComponent from '../utility/components/LoadingComponent';
 
 const defaultNavBar = [
   {
@@ -92,6 +96,8 @@ const App: React.FC = () => {
   const [path, setPath] = useState('');
   const [user, setUser] = useState(undefined);
   const [accountDropdown, setAccountDropdown] = useState({});
+  const [profilePanel, setProfilePanel] = useState(false);
+  const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
 
   const setAdminNavBar = () => {
     setNavBar(defaultNavBar);
@@ -107,6 +113,25 @@ const App: React.FC = () => {
     setMainNavBar();
   };
 
+  const showProfilePanel = () => {
+    setProfilePanel(!profilePanel);
+  };
+
+  const closeProfilePanel = () => {
+    setProfilePanel(false);
+  };
+
+  const updateProfile = async (updatedUser) => {
+    setIsUpdatingProfile(true);
+    const updateResponse = await AuthService.update(updatedUser.name, updatedUser.icon);
+    if(updateResponse.status === 200) {
+      localStorage.setItem("user", JSON.stringify(updateResponse.data));
+      setUser({...updateResponse.data});
+      setProfilePanel(false);
+    }
+    setIsUpdatingProfile(false);
+  };
+
   useEffect(() => {
     if(!!user){
       const currentUser = user || {};
@@ -115,12 +140,7 @@ const App: React.FC = () => {
         name: currentUser['name'] || '',
         description: 'Administrator',
         options: [
-          // { icon: "user", value: "Profile" },
-          // { icon: "settings", value: "Settings" },
-          // { icon: "mail", value: "Inbox", badge: "6" },
-          // { icon: "send", value: "Message" },
-          // { isDivider: true },
-          // { icon: "help-circle", value: "Need help?" },
+          { icon: "user", value: "Profile", onClick: showProfilePanel },
           { icon: "log-out", value: "Sign out", onClick: signOut },
         ],
       });
@@ -186,6 +206,19 @@ const App: React.FC = () => {
             }
           }
         </Match>
+        <Panel
+            headerText={'My Profile'}
+            isOpen={profilePanel}
+            type={PanelType.medium}
+            onDismiss={closeProfilePanel}
+            overlay={isUpdatingProfile}
+        >
+          <EditProfile
+            cancel={closeProfilePanel}
+            update={updateProfile}
+          />
+        </Panel>
+        {isUpdatingProfile && <LoadingComponent />}
       </Site.Wrapper>
     </ThemeContext.Provider>
   );

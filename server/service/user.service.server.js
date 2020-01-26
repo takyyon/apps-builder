@@ -7,8 +7,16 @@ login = (email, password) => {
 register = (data) => {
     return dao.register(data);
 };
+update = (id, name, icon) => {
+    return dao.update(id, name, icon);
+};
+findById = (id) => {
+    return dao.findUser(id);
+};
 
 module.exports = {
     login,
-    register
+    register,
+    update,
+    findById,
 };
